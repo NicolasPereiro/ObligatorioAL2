@@ -1,5 +1,8 @@
 package tads.table;
 
+import tads.list.ListaEncadenada;
+
+@SuppressWarnings("hiding")
 public interface Table<K,V> extends Iterable<Pair<K,V>>{
     void add(K key, V value);
 
@@ -11,7 +14,7 @@ public interface Table<K,V> extends Iterable<Pair<K,V>>{
   
     V get(K key);
   
-    Iterable<K> keys();
+    ListaEncadenada<K> keys();
   
-    Iterable<V> values();  
+    ListaEncadenada<V> values();  
 }

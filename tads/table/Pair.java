@@ -3,7 +3,6 @@ package tads.table;
 public class Pair<T1, T2> {
     public T1 fst;
     public T2 snd;
-    public boolean isDel= false;
   
     public Pair() {
     }
