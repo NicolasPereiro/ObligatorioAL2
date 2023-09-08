@@ -6,7 +6,7 @@ import tads.table.ParBorrado;
 import tads.hash.Hash;
 
 
-@SuppressWarnings("unused")
+@SuppressWarnings("Unchecked")
 public class THC<K, V> implements Table<K, V> {
 
     private Hash<K> hashFunc;
@@ -26,7 +26,7 @@ public class THC<K, V> implements Table<K, V> {
         int pos = h % arr.length;
         while (arr[pos] != null && !((ParBorrado<K, V>) arr[pos]).borrado) {
             collissions++;
-            pos = (h + collissions * collissions) % arr.length;
+            pos = abs((h + collissions * collissions)) % arr.length;
         }
         arr[pos] = new ParBorrado<K, V>(key, value);
         elements++;
@@ -49,7 +49,7 @@ public class THC<K, V> implements Table<K, V> {
 
     private int abs(int x) {
         if (x < 0) {
-            return -x;
+            return x*(-1);
         } else {
             return x;
         }
@@ -64,11 +64,11 @@ public class THC<K, V> implements Table<K, V> {
             return;
         else {
             int col = 1;
-            int newPos = (h + col * col) % arr.length;
+            int newPos = abs((h + col * col)) % arr.length;
             while ((ParBorrado<K, V>) arr[newPos] != null && !((ParBorrado<K, V>) arr[pos]).borrado) {
                 aux = (ParBorrado<K, V>) arr[newPos];
                 col++;
-                newPos = (h + col * col) % arr.length;
+                newPos = abs((h + col * col)) % arr.length;
             }
             aux.borrado = true;
             elements--;
