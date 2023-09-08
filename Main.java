@@ -1,7 +1,5 @@
-
+import Ejercicios.*;
 public class Main{
-    public static void main(String[] args) {
-        System.out.println("pimba");
-    }
+    Ejercicio1 ej1 = new Ejercicio1();
 
 }

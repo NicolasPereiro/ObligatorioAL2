@@ -5,8 +5,9 @@ import tads.list.ListaEncadenada;
 import tads.table.ParBorrado;
 import tads.hash.Hash;
 
-@SuppressWarnings("hiding")
-public class THC<K,V> implements Table<K,V>{
+
+@SuppressWarnings("unused")
+public class THC<K, V> implements Table<K, V> {
 
     private Hash<K> hashFunc;
     /** ParBorrado{K,V}[] */
@@ -33,24 +34,24 @@ public class THC<K,V> implements Table<K,V>{
     }
 
     private void chargeFactor() {
-        float lambda = (float)elements / (float)arr.length;
-        if(lambda > 0.7){
-        THC<K,V> aux = new THC<>(hashFunc, arr.length-1);
-        for(int i = 0; i<arr.length; i++){
-            ParBorrado<K,V> elem = (ParBorrado<K, V>) arr[i];
-            if(!elem.borrado && elem != null){
-            aux.add(elem.fst, elem.snd);
+        float lambda = (float) elements / (float) arr.length;
+        if (lambda > 0.7) {
+            THC<K, V> aux = new THC<>(hashFunc, arr.length - 1);
+            for (int i = 0; i < arr.length; i++) {
+                ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
+                if (!elem.borrado && elem != null) {
+                    aux.add(elem.fst, elem.snd);
+                }
             }
-        }
-        this.arr = aux.arr;
+            this.arr = aux.arr;
         }
     }
 
     private int abs(int x) {
         if (x < 0) {
-        return -x;
+            return -x;
         } else {
-        return x;
+            return x;
         }
     }
 
@@ -58,19 +59,20 @@ public class THC<K,V> implements Table<K,V>{
     public void delete(K key) {
         int h = abs(hashFunc.hash(key));
         int pos = h % arr.length;
-        ParBorrado<K,V> aux = (ParBorrado<K, V>) arr[pos];
-        if(aux == null || aux.borrado) return;
+        ParBorrado<K, V> aux = (ParBorrado<K, V>) arr[pos];
+        if (aux == null || aux.borrado)
+            return;
         else {
             int col = 1;
             int newPos = (h + col * col) % arr.length;
-            while((ParBorrado<K, V>) arr[newPos] != null && !((ParBorrado<K, V>) arr[pos]).borrado){
+            while ((ParBorrado<K, V>) arr[newPos] != null && !((ParBorrado<K, V>) arr[pos]).borrado) {
                 aux = (ParBorrado<K, V>) arr[newPos];
                 col++;
                 newPos = (h + col * col) % arr.length;
             }
             aux.borrado = true;
             elements--;
-        }  
+        }
     }
 
     @Override
@@ -82,28 +84,32 @@ public class THC<K,V> implements Table<K,V>{
     public boolean has(K key) {
         int h = abs(hashFunc.hash(key));
         int pos = h % arr.length;
-        ParBorrado<K,V> aux = (ParBorrado<K, V>) arr[pos];
-        if(aux == null || aux.borrado) return false;
-        else return true;
+        ParBorrado<K, V> aux = (ParBorrado<K, V>) arr[pos];
+        if (aux == null || aux.borrado)
+            return false;
+        else
+            return true;
     }
 
     @Override
     public V get(K key) {
         int h = abs(hashFunc.hash(key));
         int pos = h % arr.length;
-        ParBorrado<K,V> aux = (ParBorrado<K, V>) arr[pos];
-        if(!aux.borrado && aux != null)return aux.snd;
-        else return null;
+        ParBorrado<K, V> aux = (ParBorrado<K, V>) arr[pos];
+        if (!aux.borrado && aux != null)
+            return aux.snd;
+        else
+            return null;
     }
 
     @Override
     public ListaEncadenada<K> keys() {
         ListaEncadenada<K> l = new ListaEncadenada<K>();
         for (int i = 0; i < arr.length; i++) {
-        ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
-        if (elem != null && !elem.borrado) {
-            l.add(elem.fst);
-        }
+            ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
+            if (elem != null && !elem.borrado) {
+                l.add(elem.fst);
+            }
         }
         return l;
     }
@@ -111,25 +117,25 @@ public class THC<K,V> implements Table<K,V>{
     @Override
     public ListaEncadenada<V> values() {
         ListaEncadenada<V> l = new ListaEncadenada<V>();
-        for(int i =0; i < arr.length; i++){
-        ParBorrado<K, V> elem = ((ParBorrado<K, V>) arr[i]);
-        if(elem != null && !elem.borrado){
-            l.add(elem.snd);
-        }
+        for (int i = 0; i < arr.length; i++) {
+            ParBorrado<K, V> elem = ((ParBorrado<K, V>) arr[i]);
+            if (elem != null && !elem.borrado) {
+                l.add(elem.snd);
+            }
         }
         return l;
     }
 
     @Override
     public Iterator<Pair<K, V>> iterator() {
-        ListaEncadenada<ParBorrado<K,V>> l = new ListaEncadenada<ParBorrado<K,V>>();
+        ListaEncadenada<ParBorrado<K, V>> l = new ListaEncadenada<ParBorrado<K, V>>();
         for (int i = 0; i < arr.length; i++) {
-        ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
-        if (elem != null && !elem.borrado) {
-            l.add(elem);
-        }
+            ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
+            if (elem != null && !elem.borrado) {
+                l.add(elem);
+            }
         }
         return null;
     }
-    
+
 }
