@@ -4,7 +4,7 @@ import tads.list.ListaEncadenada;
 import tads.par.ParBorrado;
 import tads.hash.Hash;
 import objetos.Plato;
-
+@SuppressWarnings({"unchecked"})
 public class THCPlato {
 
     private Hash<String> hashFunc;

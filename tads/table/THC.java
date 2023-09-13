@@ -7,7 +7,7 @@ import tads.par.ParBorrado;
 import tads.hash.Hash;
 
 
-@SuppressWarnings("Unchecked")
+@SuppressWarnings({"unchecked"})
 public class THC<K, V> implements Table<K, V> {
 
     private Hash<K> hashFunc;
