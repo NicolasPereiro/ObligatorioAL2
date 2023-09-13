@@ -2,10 +2,10 @@
 import java.util.Scanner;
 
 import objetos.Plato;
+import tads.bst.ABBPlato;
 import tads.hash.Hash;
 import tads.hash.StringHash;
 import tads.list.ListaEncadenada;
-import tads.table.THC;
 import tads.table.THCPlato;
 
 public class Ejercicio1 {
@@ -25,6 +25,14 @@ public class Ejercicio1 {
                 t.add(entrada, p);
             }
         }
+        in.close();
         ListaEncadenada<Plato> l = t.values();
+        ABBPlato p = new ABBPlato();
+        while(l.size()>0){
+            p.add(l.getAt(0));
+            l.remove(0);
+        }
+        p.imprimirMayor();
+        
     }
 }

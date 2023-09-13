@@ -1,7 +1,7 @@
 
 package tads.table;
 import tads.list.ListaEncadenada;
-import tads.table.ParBorrado;
+import tads.par.ParBorrado;
 import tads.hash.Hash;
 import objetos.Plato;
 

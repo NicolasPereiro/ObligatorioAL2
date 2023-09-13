@@ -2,7 +2,8 @@ package tads.table;
 
 import java.util.Iterator;
 import tads.list.ListaEncadenada;
-import tads.table.ParBorrado;
+import tads.par.Pair;
+import tads.par.ParBorrado;
 import tads.hash.Hash;
 
 

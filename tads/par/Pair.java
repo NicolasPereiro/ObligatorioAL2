@@ -1,4 +1,4 @@
-package tads.table;
+package tads.par;
 
 public class Pair<T1, T2> {
     public T1 fst;

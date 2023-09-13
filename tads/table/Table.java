@@ -1,6 +1,7 @@
 package tads.table;
 
 import tads.list.ListaEncadenada;
+import tads.par.Pair;
 
 @SuppressWarnings("hiding")
 public interface Table<K,V> extends Iterable<Pair<K,V>>{
