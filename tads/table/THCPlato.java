@@ -14,7 +14,7 @@ public class THCPlato {
 
     public THCPlato(Hash<String> hashFunc, int expectedSize) {
         this.hashFunc = hashFunc;
-        this.arr = new Object[2 * expectedSize + 1];
+        this.arr = new Object[expectedSize + 1];
     }
 
     public void add(String key, Plato value) {
