@@ -1,5 +1,3 @@
-package Ejercicios;
-
 import java.util.Scanner;
 import objetos.Genero;
 import objetos.Pelicula;
