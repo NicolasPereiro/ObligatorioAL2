@@ -64,11 +64,11 @@ public class MaxHeap<E, P extends Comparable<P>> implements ColaPrioridad<E, P> 
     int childPos1 = pos * 2;
     int childPos2 = pos * 2 + 1;
     if(arr[childPos2] == null){
-      if(curr.snd.compareTo(child1.snd) < 0){
+      if(curr.snd.compareTo(child1.snd) > 0){
         swap(pos, childPos1);
       }
     } else if ((child1.snd).compareTo(child2.snd) > 0){
-        if(curr.snd.compareTo(child1.snd) > 0){
+        if(curr.snd.compareTo(child1.snd) < 0){
           swap(pos, childPos1);
           siftDown(childPos1);
         }

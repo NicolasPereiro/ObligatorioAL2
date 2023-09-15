@@ -8,13 +8,17 @@ public class Ejercicio3 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        ColaPrioridad<Paciente,Integer> c = new MaxHeap<Paciente, Integer>(n);
+        in.nextLine();
+        ColaPrioridad<Integer,Paciente> c = new MaxHeap<Integer, Paciente>(n);
         for(int i=0; i<n; i++){
-            String[] arr = in.nextLine().split(" ");
+            String linea = in.nextLine();
+            String[] arr = linea.split(" ");
             Paciente p = new Paciente(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), Integer.parseInt(arr[2]), i);
-            int prioridad = Integer.parseInt(arr[2]);
-            c.push(p, prioridad);
+            c.push(Integer.parseInt(arr[0]), p);
         }
         in.close();
+        while(c.size()>0){
+            System.out.println(c.pop());
+        }
     }
 }
