@@ -57,6 +57,7 @@ public class Ejercicio2 {
                 }
             }
         }
+        in.close();
         Pelicula[] peliculasMejorCalificadas = new Pelicula[largoGenros + 1];
         for (int j = 0; j < peliculasMejorCalificadas.length; j++) {
             peliculasMejorCalificadas[j] = null;
@@ -78,7 +79,7 @@ public class Ejercicio2 {
             }
         }
         for (int i = 0; i < peliculasMejorCalificadas.length; i++) {
-            System.out.println(peliculasMejorCalificadas[i]);
+            System.out.println(peliculasMejorCalificadas[i].id);
         }
     }
 }
