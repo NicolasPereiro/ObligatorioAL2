@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package objetos;
 public class Plato {
     private int cantidad;
@@ -23,16 +22,3 @@ public class Plato {
     }
 
 }
-=======
-package objetos;
-public class Plato {
-    public int cantidad;
-    public String nombre;
-
-    public Plato(String nombre){
-        this.nombre = nombre;
-        this.cantidad = 1;
-    }
-
-}
->>>>>>> ejercicio2
