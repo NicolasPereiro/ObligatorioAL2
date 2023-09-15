@@ -1,6 +1,6 @@
 package objetos;
 
-public class Paciente implements Comparable {
+public class Paciente implements Comparable<Paciente> {
     public int id;
     public int tiempo;
     public int urgencia;
@@ -14,8 +14,7 @@ public class Paciente implements Comparable {
     }
 
     @Override
-    public int compareTo(Object p) {
-        Paciente aux = (Paciente)p;
+    public int compareTo(Paciente aux) {
         if(this.urgencia > aux.urgencia){
             return 1;
         } else if (this.urgencia < aux.urgencia){
