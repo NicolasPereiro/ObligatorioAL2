@@ -56,7 +56,7 @@ public class Ejercicio2 {
             }
         }
         in.close();
-        Pelicula[] peliculasMejorCalificadas = new Pelicula[largoGeneros + 1];
+        Pelicula[] peliculasMejorCalificadas = new Pelicula[largoGenros + 1];
         for (int j = 0; j < peliculasMejorCalificadas.length; j++) {
             peliculasMejorCalificadas[j] = null;
         }
