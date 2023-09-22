@@ -8,6 +8,5 @@ public class Genero {
 
     public Genero(String nombre) {
         this.nombre = nombre;
-        this.peliculas = new MaxHeap<Pelicula, Double>(100);
     }
 }

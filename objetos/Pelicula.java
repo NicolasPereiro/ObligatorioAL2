@@ -4,7 +4,7 @@ public class Pelicula implements Comparable {
     public int id;
     public int sumCalificaciones;
     public double promCalificaciones;
-    public int nroReseñas;
+    public double nroReseñas;
 
     public Pelicula(int id) {
         this.id = id;
