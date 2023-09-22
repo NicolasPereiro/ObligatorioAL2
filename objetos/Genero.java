@@ -4,10 +4,10 @@ import tads.colaPrioridad.MaxHeap;
 
 public class Genero {
     public String nombre;
-    public MaxHeap<Pelicula, Integer> peliculas;
+    public MaxHeap<Pelicula, Double> peliculas;
 
     public Genero(String nombre) {
         this.nombre = nombre;
-        this.peliculas = new MaxHeap<Pelicula, Integer>(100);
+        this.peliculas = new MaxHeap<Pelicula, Double>(100);
     }
 }
