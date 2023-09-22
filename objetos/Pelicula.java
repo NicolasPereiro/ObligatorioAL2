@@ -1,6 +1,6 @@
 package objetos;
 
-public class Pelicula implements Comparable {
+public class Pelicula implements Comparable<Pelicula> {
     public int id;
     public int sumCalificaciones;
     public double promCalificaciones;
@@ -14,8 +14,8 @@ public class Pelicula implements Comparable {
     }
 
     @Override
-    public int compareTo(Object p) {
-        Pelicula aux = (Pelicula) p;
+    public int compareTo(Pelicula p) {
+        Pelicula aux = p;
         if (this.promCalificaciones > aux.promCalificaciones) {
             return 1;
         } else if (this.promCalificaciones < aux.promCalificaciones) {
