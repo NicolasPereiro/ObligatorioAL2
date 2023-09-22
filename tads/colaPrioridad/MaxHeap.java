@@ -33,7 +33,8 @@ public class MaxHeap<E, P extends Comparable<P>> implements ColaPrioridad<E, P> 
     int parentPos = pos / 2;
     Pair<E, P> curr = (Pair<E, P>) arr[pos];
     Pair<E, P> parent = (Pair<E, P>) arr[parentPos];
-    if (curr.snd.compareTo(parent.snd) > 0) {
+    int aux=curr.snd.compareTo(parent.snd);
+    if (aux > 0) {
       swap(pos, parentPos);
       siftUp(parentPos);
     }
