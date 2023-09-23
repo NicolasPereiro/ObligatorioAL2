@@ -26,13 +26,17 @@ public class ABBPlato {
             return node;
         } else {
             Plato aux = node.data;
-            if (aux.getCantidad() >= p.getCantidad()) {
+            if (aux.getCantidad() > p.getCantidad()) {
+
+                node.izq = insert(node.izq, p);
+            } else if (aux.getCantidad() == p.getCantidad()) {
                 if (aux.toString().compareTo(p.toString()) > 0) {
                     Plato swap = aux;
                     node.data = p;
                     p = swap;
                 }
                 node.izq = insert(node.izq, p);
+
             } else {
                 node.der = insert(node.der, p);
             }
@@ -41,18 +45,19 @@ public class ABBPlato {
     }
 
     public void imprimirMayor() {
-        while (ini != null){
+        while (ini != null) {
             String res = buscarMax(ini);
             System.out.println(res);
-            ini = remove(ini,res);
+            ini = remove(ini, res);
         }
     }
 
-    private Node<Plato> remove(Node<Plato> node, String data){
-        if(node== null)return null;
-        if(node.data.toString().equals(data)){
+    private Node<Plato> remove(Node<Plato> node, String data) {
+        if (node == null)
+            return null;
+        if (node.data.toString().equals(data)) {
             node = node.izq;
-        } else if (node.der != null){
+        } else if (node.der != null) {
             node.der = remove(node.der, data);
         } else {
             node.izq = remove(node.izq, data);
@@ -62,7 +67,7 @@ public class ABBPlato {
 
     private String buscarMax(Node<Plato> node) {
         Node<Plato> aux = node;
-        while(aux.der != null){
+        while (aux.der != null) {
             aux = aux.der;
         }
         return aux.data.toString();
