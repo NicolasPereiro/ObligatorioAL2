@@ -2,7 +2,7 @@ package tads.graph;
 
 import java.util.Iterator;
 
-import tads.lists.LinkedList;
+import tads.list.LinkedList;
 
 public class GraphMatrix implements Graph {
   int[][] mat;
