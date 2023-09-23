@@ -1,10 +1,10 @@
 package tads.table;
 
-import tads.list.ListaEncadenada;
+import tads.list.LinkedList;
 import tads.par.Pair;
 
 @SuppressWarnings("hiding")
-public interface Table<K,V> extends Iterable<Pair<K,V>>{
+public interface Table<K extends Comparable<K>,V extends Comparable<V>> extends Iterable<Pair<K,V>>{
     void add(K key, V value);
 
     void delete(K key);
@@ -15,7 +15,7 @@ public interface Table<K,V> extends Iterable<Pair<K,V>>{
   
     V get(K key);
   
-    ListaEncadenada<K> keys();
+    LinkedList<K> keys();
   
-    ListaEncadenada<V> values();  
+    LinkedList<V> values();  
 }

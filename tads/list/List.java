@@ -1,10 +1,9 @@
 package tads.list;
 
-public interface List<T> {
-    void add(T data);
-    void remove(int i);
-    int size();
-    boolean hasNext();
+public interface List<T> extends Iterable<T>{
+    void add(T t);
+    void remove(T data);
+    void removeAt(int i);
     T getAt(int i);
-    T getFirst();
+    int size();
 }

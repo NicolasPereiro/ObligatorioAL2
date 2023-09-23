@@ -1,6 +1,6 @@
 
 package tads.table;
-import tads.list.ListaEncadenada;
+import tads.list.LinkedList;
 import tads.par.ParBorrado;
 import tads.hash.Hash;
 import objetos.Plato;
@@ -103,8 +103,8 @@ public class THCPlato {
             return null;
     }
 
-    public ListaEncadenada<String> keys() {
-        ListaEncadenada<String> l = new ListaEncadenada<String>();
+    public LinkedList<String> keys() {
+        LinkedList<String> l = new LinkedList<String>();
         for (int i = 0; i < arr.length; i++) {
             ParBorrado<String,Plato> elem = (ParBorrado<String,Plato>) arr[i];
             if (elem != null && !elem.borrado) {
@@ -114,8 +114,8 @@ public class THCPlato {
         return l;
     }
 
-    public ListaEncadenada<Plato> values() {
-        ListaEncadenada<Plato> l = new ListaEncadenada<Plato>();
+    public LinkedList<Plato> values() {
+        LinkedList<Plato> l = new LinkedList<Plato>();
         for (int i = 0; i < arr.length; i++) {
             ParBorrado<String,Plato> elem = ((ParBorrado<String,Plato>) arr[i]);
             if (elem != null && !elem.borrado) {

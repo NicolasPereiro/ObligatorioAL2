@@ -5,7 +5,7 @@ import objetos.Plato;
 import tads.bst.ABBPlato;
 import tads.hash.Hash;
 import tads.hash.StringHash;
-import tads.list.ListaEncadenada;
+import tads.list.LinkedList;
 import tads.table.THCPlato;
 
 public class Ejercicio1 {
@@ -26,11 +26,11 @@ public class Ejercicio1 {
             }
         }
         in.close();
-        ListaEncadenada<Plato> l = t.values();
+        LinkedList<Plato> l = t.values();
         ABBPlato p = new ABBPlato();
         while(l.size()>0){
             p.add(l.getAt(0));
-            l.remove(0);
+            l.removeAt(0);
         }
         p.imprimirMayor();
         

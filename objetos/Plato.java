@@ -1,5 +1,5 @@
 package objetos;
-public class Plato {
+public class Plato implements Comparable<Plato>{
     private int cantidad;
     private String nombre;
 
@@ -19,6 +19,12 @@ public class Plato {
     @Override
     public String toString() {
         return this.nombre;
+    }
+
+    @Override
+    public int compareTo(Plato arg0) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
     }
 
 }

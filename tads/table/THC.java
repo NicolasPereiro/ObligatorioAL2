@@ -1,14 +1,15 @@
 package tads.table;
 
 import java.util.Iterator;
-import tads.list.ListaEncadenada;
+
+import tads.list.LinkedList;
 import tads.par.Pair;
 import tads.par.ParBorrado;
 import tads.hash.Hash;
 
 
 @SuppressWarnings({"unchecked"})
-public class THC<K, V> implements Table<K, V> {
+public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Table<K, V> {
 
     private Hash<K> hashFunc;
     /** ParBorrado{K,V}[] */
@@ -104,8 +105,8 @@ public class THC<K, V> implements Table<K, V> {
     }
 
     @Override
-    public ListaEncadenada<K> keys() {
-        ListaEncadenada<K> l = new ListaEncadenada<K>();
+    public LinkedList<K> keys() {
+        LinkedList<K> l = new LinkedList<K>();
         for (int i = 0; i < arr.length; i++) {
             ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
             if (elem != null && !elem.borrado) {
@@ -116,8 +117,8 @@ public class THC<K, V> implements Table<K, V> {
     }
 
     @Override
-    public ListaEncadenada<V> values() {
-        ListaEncadenada<V> l = new ListaEncadenada<V>();
+    public LinkedList<V> values() {
+        LinkedList<V> l = new LinkedList<V>();
         for (int i = 0; i < arr.length; i++) {
             ParBorrado<K, V> elem = ((ParBorrado<K, V>) arr[i]);
             if (elem != null && !elem.borrado) {
@@ -129,7 +130,7 @@ public class THC<K, V> implements Table<K, V> {
 
     @Override
     public Iterator<Pair<K, V>> iterator() {
-        ListaEncadenada<ParBorrado<K, V>> l = new ListaEncadenada<ParBorrado<K, V>>();
+        LinkedList<ParBorrado<K, V>> l = new LinkedList<ParBorrado<K, V>>();
         for (int i = 0; i < arr.length; i++) {
             ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
             if (elem != null && !elem.borrado) {
