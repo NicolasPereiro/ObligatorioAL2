@@ -42,7 +42,7 @@ public class Ejercicio2 {
             String[] cals = in.nextLine().split(" ");
             Pelicula aux = t.get(Integer.parseInt(cals[0]));
             aux.setSumCalificaciones(aux.getSumCalificaciones() + Integer.parseInt(cals[1]));
-            aux.agregarReseña(); //cuenta de mas, la funcion esta mal no enceuntra la pelicula correcta
+            aux.agregarReseña(); //cuenta de mas, la funcion esta mal no encuentra la pelicula correcta
             t.delete(Integer.parseInt(cals[0]));
             t.add(aux.getId(), aux);
         } // fin lectura
