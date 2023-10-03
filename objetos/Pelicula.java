@@ -3,6 +3,7 @@ package objetos;
 public class Pelicula implements Comparable<Pelicula> {
     private int id;
     private String genero;
+    private int codGenero;
     private int sumCalificaciones;
     private double nroReseñas;
     private double promCalificaciones;
@@ -13,6 +14,14 @@ public class Pelicula implements Comparable<Pelicula> {
         this.nroReseñas = 0;
         this.promCalificaciones = 0;
         this.genero = "";
+    }
+
+    public int getCodGenero() {
+        return codGenero;
+    }
+
+    public void setCodGenero(int codGenero) {
+        this.codGenero = codGenero;
     }
 
     public double getNroReseñas() {
@@ -51,17 +60,24 @@ public class Pelicula implements Comparable<Pelicula> {
         return promCalificaciones;
     }
 
-    public void setPromCalificaciones(double promCalificaciones) {
-        this.promCalificaciones = promCalificaciones;
+    public void promedio() {
+        if (this.nroReseñas == 0) {
+            this.promCalificaciones = 0;
+        } else
+            this.promCalificaciones = sumCalificaciones / nroReseñas;
+    }
+
+    public void agregarReseña() {
+        this.nroReseñas++;
     }
 
     @Override
     public int compareTo(Pelicula p) {
         Pelicula Pelicula2 = p;
-        if (this.genero > p.genero) {
-            return 1;
-        } else if (this.genero < p.genero) {
+        if (this.codGenero > p.codGenero) {
             return -1;
+        } else if (this.codGenero < p.codGenero) {
+            return 1;
         } else { // si son iguales
             if (this.promCalificaciones > Pelicula2.promCalificaciones) {
                 return 1;
@@ -78,4 +94,3 @@ public class Pelicula implements Comparable<Pelicula> {
         }
     }
 }
- 

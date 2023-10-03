@@ -7,8 +7,7 @@ import tads.par.Pair;
 import tads.par.ParBorrado;
 import tads.hash.Hash;
 
-
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings({ "unchecked" })
 public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Table<K, V> {
 
     private Hash<K> hashFunc;
@@ -41,7 +40,7 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
             THC<K, V> aux = new THC<>(hashFunc, arr.length - 1);
             for (int i = 0; i < arr.length; i++) {
                 ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
-                if (!elem.borrado && elem != null) {
+                if (elem != null && !elem.borrado) {
                     aux.add(elem.fst, elem.snd);
                 }
             }
@@ -51,7 +50,7 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
 
     private int abs(int x) {
         if (x < 0) {
-            return x*(-1);
+            return x * (-1);
         } else {
             return x;
         }
