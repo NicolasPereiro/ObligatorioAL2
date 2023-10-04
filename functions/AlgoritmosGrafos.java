@@ -1,7 +1,14 @@
+import java.util.Iterator;
+
+import objetos.Bomba;
+import objetos.Printer;
 import tads.colaPrioridad.ColaPrioridad;
+import tads.colaPrioridad.MaxHeap;
 import tads.colaPrioridad.MinHeap;
+import tads.graph.GraphList;
 import tads.graph.GraphMatrix;
 import tads.list.LinkedList;
+import tads.table.THC;
 
 public class AlgoritmosGrafos {
     public AlgoritmosGrafos() {
@@ -94,6 +101,36 @@ public class AlgoritmosGrafos {
             if(costo[v] != Integer.MAX_VALUE){
                 //TODO Terminar el algoritmo de Bellman - Ford
             }
+        }
+    }
+
+    public static void topoSort(GraphList g, THC<String,Integer> table, int cantPedidos){
+        int[] gradoEntrada = g.gradosEntrada;
+        ColaPrioridad<String, String> cp = new MinHeap<>(g.vertices());
+        Object[] vertice = g.vertices;
+        int cont = 1;
+        Printer p = new Printer();
+        for(int v = 1; v <= g.vertices(); v++){
+            if(gradoEntrada[v] == 0){
+                cp.push((String)vertice[v], (String)vertice[v]);
+            }
+        }
+        while(cp.size()>0){
+            cont++;
+            String aux = cp.pop();
+            p.addPrint(aux);
+            Iterator<Integer> it = g.adjacents(table.get(aux));
+            while(it != null && it.hasNext()){
+                int adyacente = it.next();
+                if(--gradoEntrada[adyacente] == 0){
+                    cp.push((String) vertice[adyacente], (String)vertice[adyacente]);
+                }
+            }
+        }
+        if(cont-1 < g.vertices()){
+            System.out.println("CICLO DETECTADO");
+        } else {
+            p.imprimir();
         }
     }
 

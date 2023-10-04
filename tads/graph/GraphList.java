@@ -2,45 +2,80 @@ package tads.graph;
 
 import java.util.Iterator;
 
-public class GraphList implements Graph{
-    int[] adjacencyLists;
-    public GraphList(int vertices){
+import tads.list.LinkedList;
+import tads.par.ParBorrado;
 
+@SuppressWarnings("unchecked")
+public class GraphList implements Graph {
+    public Object[] adjacencyLists;
+    public Object[] vertices;
+    public int[] gradosEntrada;
+    boolean isDirected;
+
+    public GraphList(int vertices, boolean isDirected) {
+        this.adjacencyLists = new Object[vertices + 1];
+        this.isDirected = isDirected;
+        this.gradosEntrada = new int[vertices + 1];
+        this.vertices = new Object[vertices + 1];
     }
+
     @Override
     public int vertices() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'vertices'");
+        return this.adjacencyLists.length - 1;
     }
 
     @Override
     public Iterator<Integer> adjacents(int v) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'adjacents'");
+        if(adjacencyLists[v] == null)return null;
+        return ((LinkedList<Integer>) adjacencyLists[v]).iterator();
+    }
+
+    public Iterator<String> adjacentsString(int v){
+        return ((LinkedList<String>) adjacencyLists[v]).iterator();
     }
 
     @Override
     public boolean hasEdge(int v, int w) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hasEdge'");
+        Iterator<Integer> it = ((LinkedList<Integer>) adjacencyLists[v]).iterator();
+        while (it.hasNext()) {
+            if (w == it.next()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public int getEdge(int v, int w) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEdge'");
+        throw new UnsupportedOperationException("NO ESTA PONDERADO");
     }
 
     @Override
     public int[][] adjecencyMatrix() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'adjecencyMatrix'");
+        throw new UnsupportedOperationException("No tiene matriz de adyacencia");
     }
 
     @Override
     public void addEdge(int v, int w) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addEdge'");
+        gradosEntrada[w]++;
+        if (adjacencyLists[v] == null) {
+            LinkedList<Integer> l = new LinkedList<>();
+            l.add(w);
+            adjacencyLists[v] = l;
+        } else {
+            ((LinkedList<Integer>) adjacencyLists[v]).add(w);
+        }
+        if (!isDirected) {
+            if (adjacencyLists[w] == null) {
+                LinkedList<Integer> l = new LinkedList<>();
+                l.add(v);
+                adjacencyLists[w] = l;
+            } else {
+                ((LinkedList<Integer>) adjacencyLists[w]).add(v);
+            }
+        }
     }
 
     @Override
@@ -51,8 +86,10 @@ public class GraphList implements Graph{
 
     @Override
     public void removeEdge(int v, int w) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeEdge'");
+        if (adjacencyLists[v] == null)
+            return;
+        gradosEntrada[w]--;
+        ((LinkedList<Integer>) adjacencyLists[v]).remove(w);
     }
-    
+
 }

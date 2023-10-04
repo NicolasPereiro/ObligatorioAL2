@@ -7,8 +7,7 @@ import tads.par.Pair;
 import tads.par.ParBorrado;
 import tads.hash.Hash;
 
-
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings({ "unchecked" })
 public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Table<K, V> {
 
     private Hash<K> hashFunc;
@@ -18,7 +17,7 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
 
     public THC(Hash<K> hashFunc, int expectedSize) {
         this.hashFunc = hashFunc;
-        this.arr = new Object[2 * expectedSize + 1];
+        this.arr = new Object[3 * expectedSize + 1];
     }
 
     @Override
@@ -51,7 +50,7 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
 
     private int abs(int x) {
         if (x < 0) {
-            return x*(-1);
+            return x * (-1);
         } else {
             return x;
         }
@@ -98,6 +97,16 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
         int h = abs(hashFunc.hash(key));
         int pos = h % arr.length;
         ParBorrado<K, V> aux = (ParBorrado<K, V>) arr[pos];
+        if (aux.fst.compareTo(key) != 0) {
+            int col = 1;
+            int newPos = abs((h + col * col)) % arr.length;
+            aux =  (ParBorrado<K, V>) arr[newPos];
+            while ( aux != null && !aux.borrado && !aux.fst.equals(key)) {
+                aux = (ParBorrado<K, V>) arr[newPos];
+                col++;
+                newPos = abs((h + col * col)) % arr.length;
+            }
+        }
         if (!aux.borrado && aux != null)
             return aux.snd;
         else
@@ -138,6 +147,10 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
             }
         }
         return null;
+    }
+
+    public Object[] getTable() {
+        return this.arr;
     }
 
 }

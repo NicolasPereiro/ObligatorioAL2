@@ -7,10 +7,12 @@ import tads.list.LinkedList;
 public class GraphMatrix implements Graph {
   int[][] mat;
   boolean isDirected;
+  public int[] gradosEntrada;
 
   public GraphMatrix(int vertices, boolean isDirected) {
     this.isDirected = isDirected;
     this.mat = new int[vertices + 1][vertices + 1];
+    this.gradosEntrada = new int[vertices + 1];
   }
 
   @Override
@@ -60,6 +62,7 @@ public class GraphMatrix implements Graph {
   @Override
   public void addEdge(int v, int w) {
     this.mat[v][w] = 1;
+    this.gradosEntrada[w]++;
     if (!this.isDirected) {
       this.mat[w][v] = 1;
     }
@@ -68,6 +71,7 @@ public class GraphMatrix implements Graph {
   @Override
   public void addEdge(int v, int w, int weight) {
     this.mat[v][w] = weight;
+    this.gradosEntrada[w]++;
     if (!this.isDirected) {
       this.mat[w][v] = weight;
     }
@@ -76,6 +80,7 @@ public class GraphMatrix implements Graph {
   @Override
   public void removeEdge(int v, int w) {
     this.mat[v][w] = 0;
+    this.gradosEntrada[w]--;
     if (!this.isDirected) {
       this.mat[w][v] = 0;
     }
