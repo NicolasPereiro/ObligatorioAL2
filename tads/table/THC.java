@@ -66,13 +66,16 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
         else {
             int col = 1;
             int newPos = abs((h + col * col)) % arr.length;
-            while ((ParBorrado<K, V>) arr[newPos] != null && !((ParBorrado<K, V>) arr[pos]).borrado) {
+            aux = (ParBorrado<K, V>) arr[newPos];
+            while (aux != null && !aux.borrado && aux.fst.compareTo(key) != 0) {
                 aux = (ParBorrado<K, V>) arr[newPos];
                 col++;
                 newPos = abs((h + col * col)) % arr.length;
             }
-            aux.borrado = true;
-            elements--;
+            if (aux != null && !aux.borrado) {
+                aux.borrado = true;
+                elements--;
+            }
         }
     }
 
@@ -100,8 +103,8 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
         if (aux.fst.compareTo(key) != 0) {
             int col = 1;
             int newPos = abs((h + col * col)) % arr.length;
-            aux =  (ParBorrado<K, V>) arr[newPos];
-            while ( aux != null && !aux.borrado && !aux.fst.equals(key)) {
+            aux = (ParBorrado<K, V>) arr[newPos];
+            while (aux != null && !aux.borrado && !aux.fst.equals(key)) {
                 aux = (ParBorrado<K, V>) arr[newPos];
                 col++;
                 newPos = abs((h + col * col)) % arr.length;

@@ -1,7 +1,11 @@
 import java.util.Scanner;
-import objetos.Genero;
 import objetos.Pelicula;
 import tads.colaPrioridad.MaxHeap;
+import tads.hash.Hash;
+import tads.hash.IntHash;
+import tads.hash.StringHash;
+import tads.table.THC;
+import tads.list.LinkedList;
 
 public class Ejercicio2 {
     public Ejercicio2() {
@@ -14,68 +18,55 @@ public class Ejercicio2 {
 
     public static void test() {
         Scanner in = new Scanner(System.in);
-        int largoGenros = in.nextInt();
+        int generos = in.nextInt();
+        Hash<String> hashGen = new StringHash();
         in.nextLine();
-        Genero[] arrGeneros = new Genero[largoGenros];
-        for (int i = 0; i < largoGenros; i++) {
-            Genero newGenero = new Genero(in.nextLine());
-            arrGeneros[i] = newGenero;
+        THC<String, Integer> tGen = new THC<String, Integer>(hashGen, generos);
+        for (int i = 0; i < generos; i++) {
+            String genero = in.nextLine();
+            tGen.add(genero, i + 1);
         }
         int cantPeliculas = in.nextInt();
-        for (int i = 0; i < largoGenros; i++) {
-            arrGeneros[i].peliculas = new MaxHeap<Pelicula, Pelicula>(cantPeliculas / 2);
-        }
         in.nextLine();
-        while (cantPeliculas != 0) {
-            boolean encontrado = false;
-            String[] datosFilm = in.nextLine().split(" ");
-            Pelicula newPelicula = new Pelicula(Integer.parseInt(datosFilm[0]));
-            for (int i = 0; i < largoGenros && !encontrado; i++) {
-                if ((arrGeneros[i].nombre).compareToIgnoreCase(datosFilm[1]) == 0) {
-                    arrGeneros[i].peliculas.push(newPelicula, newPelicula);
-                    encontrado = true;
-                }
-            }
-            cantPeliculas--;
+        Hash<Integer> hash = new IntHash();
+        THC<Integer, Pelicula> t = new THC<Integer, Pelicula>(hash, cantPeliculas);
+        for (int i = 0; i < cantPeliculas; i++) {
+            String[] pelicula = in.nextLine().split(" ");
+            Pelicula p = new Pelicula(Integer.parseInt(pelicula[0]));
+            p.setGenero(pelicula[1]);
+            p.setCodGenero(tGen.get(pelicula[1]));
+            t.add(p.getId(), p);
         }
-        int calificaciones = in.nextInt();
+        int cal = in.nextInt();
         in.nextLine();
-        while (calificaciones != 0) {
-            String[] reseñaFilm = in.nextLine().split(" ");
-            int id = Integer.parseInt(reseñaFilm[0]);
-            MaxHeap<Pelicula, Pelicula> heapAux = new MaxHeap<Pelicula, Pelicula>(100);
-            boolean cambio = false;
-            for (int i = 0; i < arrGeneros.length && !cambio; i++) {
-                boolean again = true;
-                while (again) {
-                    Pelicula film = arrGeneros[i].peliculas.pop();
-                    if (film.id == id) {
-                        film.sumCalificaciones += Integer.parseInt(reseñaFilm[1]);
-                        film.nroReseñas++;
-                        film.promCalificaciones = film.sumCalificaciones / film.nroReseñas;
-                        arrGeneros[i].peliculas.push(film, film);
-                        while (heapAux.size() != 0) {
-                            Pelicula peliculaAux = heapAux.pop();
-                            arrGeneros[i].peliculas.push(peliculaAux, peliculaAux);
-                        }
-                        cambio = true;
-                        again = false;
-                    } else {
-                        heapAux.push(film, film);
-                        if (arrGeneros[i].peliculas.size() == 0) {
-                            arrGeneros[i].peliculas = heapAux;
-                            heapAux = new MaxHeap<Pelicula, Pelicula>(100);
-                            again = false;
-                        }
-                    }
-                }
-
-            }
-            calificaciones--;
-        }
+        for (int i = 0; i < cal; i++) {
+            String[] cals = in.nextLine().split(" ");
+            int pos = Integer.parseInt(cals[0]);
+            Pelicula aux = t.get(Integer.parseInt(cals[0]));
+            aux.setSumCalificaciones(aux.getSumCalificaciones() + Integer.parseInt(cals[1]));
+            aux.agregarReseña();
+            t.delete(pos);
+            t.add(aux.getId(), aux);
+        } // fin lectura
         in.close();
-        for (int i = 0; i < arrGeneros.length; i++) {
-            System.out.println(arrGeneros[i].peliculas.pop().id);
+        MaxHeap<Pelicula, Pelicula> heapAux = new MaxHeap<Pelicula, Pelicula>(cantPeliculas / 2);
+        LinkedList<Integer> keys = t.keys();
+        LinkedList<Integer>.ListIterator it = (LinkedList<Integer>.ListIterator) keys.iterator();
+        while (it.hasNext()) {
+            int key = it.next();
+            Pelicula peli = t.get(key);
+            peli.promedio();
+            heapAux.push(peli, peli);
+        }
+        Pelicula p1 = heapAux.pop();
+        System.out.println(p1.getId());
+        while (generos - 1 != 0) {
+            Pelicula pAux = heapAux.pop();
+            if (pAux.getGenero().compareTo(p1.getGenero()) != 0) {
+                System.out.println(pAux.getId());
+                p1 = pAux;
+                generos--;
+            }
         }
     }
 }
