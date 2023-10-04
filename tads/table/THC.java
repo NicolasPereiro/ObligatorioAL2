@@ -17,7 +17,7 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
 
     public THC(Hash<K> hashFunc, int expectedSize) {
         this.hashFunc = hashFunc;
-        this.arr = new Object[2 * expectedSize + 1];
+        this.arr = new Object[3 * expectedSize + 1];
     }
 
     @Override
@@ -40,7 +40,7 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
             THC<K, V> aux = new THC<>(hashFunc, arr.length - 1);
             for (int i = 0; i < arr.length; i++) {
                 ParBorrado<K, V> elem = (ParBorrado<K, V>) arr[i];
-                if (elem != null && !elem.borrado) {
+                if (!elem.borrado && elem != null) {
                     aux.add(elem.fst, elem.snd);
                 }
             }
@@ -66,13 +66,16 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
         else {
             int col = 1;
             int newPos = abs((h + col * col)) % arr.length;
-            while ((ParBorrado<K, V>) arr[newPos] != null && !((ParBorrado<K, V>) arr[pos]).borrado) {
+            aux = (ParBorrado<K, V>) arr[newPos];
+            while (aux != null && !aux.borrado && aux.fst.compareTo(key) != 0) {
                 aux = (ParBorrado<K, V>) arr[newPos];
                 col++;
                 newPos = abs((h + col * col)) % arr.length;
             }
-            aux.borrado = true;
-            elements--;
+            if (aux != null && !aux.borrado) {
+                aux.borrado = true;
+                elements--;
+            }
         }
     }
 
@@ -97,6 +100,16 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
         int h = abs(hashFunc.hash(key));
         int pos = h % arr.length;
         ParBorrado<K, V> aux = (ParBorrado<K, V>) arr[pos];
+        if (aux.fst.compareTo(key) != 0) {
+            int col = 1;
+            int newPos = abs((h + col * col)) % arr.length;
+            aux = (ParBorrado<K, V>) arr[newPos];
+            while (aux != null && !aux.borrado && !aux.fst.equals(key)) {
+                aux = (ParBorrado<K, V>) arr[newPos];
+                col++;
+                newPos = abs((h + col * col)) % arr.length;
+            }
+        }
         if (!aux.borrado && aux != null)
             return aux.snd;
         else
@@ -137,6 +150,10 @@ public class THC<K extends Comparable<K>, V extends Comparable<V>> implements Ta
             }
         }
         return null;
+    }
+
+    public Object[] getTable() {
+        return this.arr;
     }
 
 }

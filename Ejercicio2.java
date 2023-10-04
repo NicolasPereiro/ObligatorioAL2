@@ -20,8 +20,9 @@ public class Ejercicio2 {
         Scanner in = new Scanner(System.in);
         int generos = in.nextInt();
         Hash<String> hashGen = new StringHash();
+        in.nextLine();
         THC<String, Integer> tGen = new THC<String, Integer>(hashGen, generos);
-        for (int i = 0; i <= generos; i++) {
+        for (int i = 0; i < generos; i++) {
             String genero = in.nextLine();
             tGen.add(genero, i + 1);
         }
@@ -40,10 +41,11 @@ public class Ejercicio2 {
         in.nextLine();
         for (int i = 0; i < cal; i++) {
             String[] cals = in.nextLine().split(" ");
+            int pos = Integer.parseInt(cals[0]);
             Pelicula aux = t.get(Integer.parseInt(cals[0]));
             aux.setSumCalificaciones(aux.getSumCalificaciones() + Integer.parseInt(cals[1]));
-            aux.agregarReseña(); //cuenta de mas, la funcion esta mal no encuentra la pelicula correcta
-            t.delete(Integer.parseInt(cals[0]));
+            aux.agregarReseña(); // cuenta de mas, la funcion esta mal no encuentra la pelicula correcta
+            t.delete(pos);
             t.add(aux.getId(), aux);
         } // fin lectura
         in.close();
@@ -54,9 +56,7 @@ public class Ejercicio2 {
             int key = it.next();
             Pelicula peli = t.get(key);
             peli.promedio();// se deberia de calcular el prom
-            if (peli.getPromCalificaciones() != 0) {
                 heapAux.push(peli, peli);
-            }
         }
         Pelicula p1 = heapAux.pop();
         System.out.println(p1.getId());
