@@ -29,11 +29,12 @@ public class AlgoritmosGrafos {
         }
     }
 
-    public static void dijkstra(GraphMatrix graph, int origin) { // IMPORTANTE: LA MATRIZ DE ADYACENCIA DEBE SER
+    public static int[] dijkstra(GraphMatrix graph, int origin) { // IMPORTANTE: LA MATRIZ DE ADYACENCIA DEBE SER
                                                                  // MODIFICADA PARA SER EVALUADA MAS ABAJO
         int length = graph.vertices();
         boolean[] visitados = initVisitados(length);
         int[] costos = initCostos(length);
+        costos[origin]=0;
         int[] anterior = initAnterior(length);
         ColaPrioridad<Integer, Integer> cp = new MinHeap<>(length);
         cp.push(origin, 0);
@@ -51,23 +52,24 @@ public class AlgoritmosGrafos {
                 }
             }
         }
+        return costos;
     }
 
     private static int[] initAnterior(int length) {
-        int[] anterior = new int[length];
+        int[] anterior = new int[length+1];
         return anterior;
     }
 
     private static boolean[] initVisitados(int length) {
-        boolean[] res = new boolean[length];
-        for (int i = 0; i < length; i++)
+        boolean[] res = new boolean[length+1];
+        for (int i = 0; i < length+1; i++)
             res[i] = false;
         return res;
     }
 
     private static int[] initCostos(int size) {
-        int[] res = new int[size];
-        for (int i = 0; i < size; i++)
+        int[] res = new int[size+1];
+        for (int i = 0; i < size+1; i++)
             res[i] = Integer.MAX_VALUE;
         return res;
     }
