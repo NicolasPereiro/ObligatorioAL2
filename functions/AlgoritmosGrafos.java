@@ -1,13 +1,17 @@
 import java.util.Iterator;
 
+import objetos.Arista;
 import objetos.Bomba;
 import objetos.Printer;
+import tads.colaPrioridad.Cola;
 import tads.colaPrioridad.ColaPrioridad;
 import tads.colaPrioridad.MaxHeap;
 import tads.colaPrioridad.MinHeap;
+import tads.graph.Graph;
 import tads.graph.GraphList;
 import tads.graph.GraphMatrix;
 import tads.list.LinkedList;
+import tads.set.DisjointSet;
 import tads.table.THC;
 
 public class AlgoritmosGrafos {
@@ -134,6 +138,20 @@ public class AlgoritmosGrafos {
         } else {
             p.imprimir();
         }
+    }
+
+    public static LinkedList<Arista> kruskal(GraphMatrix g){
+        ColaPrioridad<Arista,Integer> cp = g.aristas;
+        LinkedList<Arista> l =  new LinkedList<>();
+        DisjointSet dSet = new DisjointSet(g.vertices());
+        while(cp.size()>0){
+            Arista arista = cp.pop();
+            if(dSet.buscar(arista.origen) != dSet.buscar(arista.destino)){
+                dSet.unir(arista.origen, arista.destino);
+                l.add(arista);
+            }
+        }
+        return l;
     }
 
 }
