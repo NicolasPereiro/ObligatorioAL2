@@ -25,11 +25,12 @@ public class GraphList implements Graph {
 
     @Override
     public Iterator<Integer> adjacents(int v) {
-        if(adjacencyLists[v] == null)return null;
+        if (adjacencyLists[v] == null)
+            return null;
         return ((LinkedList<Integer>) adjacencyLists[v]).iterator();
     }
 
-    public Iterator<String> adjacentsString(int v){
+    public Iterator<String> adjacentsString(int v) {
         return ((LinkedList<String>) adjacencyLists[v]).iterator();
     }
 
@@ -46,8 +47,15 @@ public class GraphList implements Graph {
 
     @Override
     public int getEdge(int v, int w) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("NO ESTA PONDERADO");
+        if(adjacencyLists[v] == null)return 0;
+        Iterator<ParBorrado<Integer,Integer>> it = ((LinkedList<ParBorrado<Integer,Integer>>) adjacencyLists[v]).iterator();
+        while(it.hasNext()){
+            ParBorrado<Integer,Integer> par = it.next();
+            if(par.fst == w){
+                return par.snd; 
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -79,8 +87,19 @@ public class GraphList implements Graph {
 
     @Override
     public void addEdge(int v, int w, int weight) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addEdge'");
+        gradosEntrada[w]++;
+        if (adjacencyLists[v] == null) {
+            LinkedList<ParBorrado<Integer, Integer>> l = new LinkedList<>();
+            ParBorrado<Integer, Integer> aux = new ParBorrado<Integer, Integer>(w, weight);
+            l.add(aux);
+            return;
+        } else {
+            ParBorrado<Integer, Integer> aux = new ParBorrado<Integer, Integer>(w, weight);
+            ((LinkedList<ParBorrado<Integer, Integer>>)adjacencyLists[v]).add(aux);
+        }
+        if(!isDirected){
+            throw new RuntimeException("Metodo no implementado");
+        }
     }
 
     @Override

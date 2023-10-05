@@ -25,7 +25,7 @@ public class GraphMatrix implements Graph {
     LinkedList<Integer> l = new LinkedList<Integer>();
     for (int i = 0; i < mat.length; i++) {
       if (hasEdge(v, i)) {
-        l.add(mat[v][i]);
+        l.add(i);
       }
     }
     return l.iterator();
