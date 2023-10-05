@@ -3,6 +3,7 @@ package tads.graph;
 import java.util.Iterator;
 
 import tads.list.LinkedList;
+import tads.par.ParBorrado;
 
 @SuppressWarnings("unchecked")
 public class GraphList implements Graph {
