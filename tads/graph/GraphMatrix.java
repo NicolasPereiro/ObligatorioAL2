@@ -11,7 +11,7 @@ public class GraphMatrix implements Graph {
   int[][] mat;
   boolean isDirected;
   public int[] gradosEntrada;
-  public ColaPrioridad<Arista,Integer> aristas;
+  public ColaPrioridad<Arista,Integer> aristas = null;
 
   public GraphMatrix(int vertices, boolean isDirected) {
     this.isDirected = isDirected;
@@ -80,7 +80,7 @@ public class GraphMatrix implements Graph {
   public void addEdge(int v, int w, int weight) {
     this.mat[v][w] = weight;
     Arista ari = new Arista(v,w);
-    aristas.push(ari, weight);
+    if(aristas!= null) aristas.push(ari, weight);
     this.gradosEntrada[w]++;
     if (!this.isDirected) {
       this.mat[w][v] = weight;

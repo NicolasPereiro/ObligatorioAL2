@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import functions.AlgoritmosGrafos;
 
 import tads.graph.GraphMatrix;
 
@@ -20,9 +21,9 @@ public class Ejercicio5 {
         int origen = Integer.parseInt(camino[0]);
         int[] costos = AlgoritmosGrafos.dijkstra(g, origen);
         if(costos[Integer.parseInt(camino[1])] == Integer.MAX_VALUE){
-            System.out.println(-1);
+            System.out.print(-1);
         } else {
-            System.out.println(costos[Integer.parseInt(camino[1])]);
+            System.out.print(costos[Integer.parseInt(camino[1])]);
         }
         in.close();
     }
