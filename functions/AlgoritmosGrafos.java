@@ -13,7 +13,7 @@ import tads.graph.Graph;
 import tads.graph.GraphList;
 import tads.graph.GraphMatrix;
 import tads.list.LinkedList;
-import tads.set.DisjointSet;
+import tads.set.DJSet;
 import tads.table.THC;
 
 public class AlgoritmosGrafos {
@@ -145,11 +145,11 @@ public class AlgoritmosGrafos {
     public static LinkedList<Arista> kruskal(GraphMatrix g){
         ColaPrioridad<Arista,Integer> cp = g.aristas;
         LinkedList<Arista> l =  new LinkedList<>();
-        DisjointSet dSet = new DisjointSet(g.vertices());
+        DJSet dSet = new DJSet(g.vertices());
         while(cp.size()>0){
             Arista arista = cp.pop();
-            if(dSet.buscar(arista.origen) != dSet.buscar(arista.destino)){
-                dSet.unir(arista.origen, arista.destino);
+            if(dSet.find(arista.origen) != dSet.find(arista.destino)){
+                dSet.union(arista.origen, arista.destino);
                 l.add(arista);
             }
         }

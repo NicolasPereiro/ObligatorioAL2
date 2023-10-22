@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import functions.AlgoritmosGrafos;
 import tads.graph.GraphList;
 import tads.hash.Hash;
 import tads.hash.StringHash;
