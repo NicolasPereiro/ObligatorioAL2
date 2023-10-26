@@ -3,13 +3,9 @@ package functions;
 import java.util.Iterator;
 
 import objetos.Arista;
-import objetos.Bomba;
 import objetos.Printer;
-import tads.colaPrioridad.Cola;
 import tads.colaPrioridad.ColaPrioridad;
-import tads.colaPrioridad.MaxHeap;
 import tads.colaPrioridad.MinHeap;
-import tads.graph.Graph;
 import tads.graph.GraphList;
 import tads.graph.GraphMatrix;
 import tads.list.LinkedList;
