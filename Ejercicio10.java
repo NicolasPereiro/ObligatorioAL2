@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import tads.colaPrioridad.MinHeap;
-
 public class Ejercicio10 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -16,21 +14,25 @@ public class Ejercicio10 {
             }
         }
         int k = largo / 3 * ancho / 3;
-        for (int i = 0; i < largo; i++) {
-            for (int j = 0; j < ancho; j++) {
-                if (mat[i][j] == 0) {
-                    sudokuBT(mat, i, j, k);
+        int[][] res = sudoku(mat, k);
+    }
+
+    public static int[][] sudoku(int[][]mat, int k){
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[0].length; j++) {
+                if(mat[i][j] ==0){
+                    sudokuBT(mat, k, i, j);
+                    break;
                 }
             }
-            System.out.println();
         }
+        return mat;
     }
-    
 
-    private static boolean sudokuBT(int[][] mat, int i, int j, int k) {
-        // if (esSol(mat, i, j, k)) {
-        //     return true;
-        // }
+    private static boolean sudokuBT(int[][] mat, int k, int i, int j) {
+        if (esViable(mat, k)) {
+            return true;
+        }
         for (int p = 1; p <= k; p++) {
             mat[i][j] = p;
             if (esViable(mat, k)) {
@@ -52,7 +54,7 @@ public class Ejercicio10 {
         boolean[] usados = new boolean[k + 1];
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[0].length; j++) {
-                if (!usados[mat[i][j]]) {
+                if (!usados[mat[i][j]] && mat[i][j] != 0) {
                     usados[mat[i][j]] = true;
                 } else {
                     return false;
@@ -64,7 +66,7 @@ public class Ejercicio10 {
         }
         for (int i = 0; i < mat[0].length; i++) {
             for (int j = 0; j < mat.length; j++) {
-                if (!usados[mat[j][i]]) {
+                if (!usados[mat[j][i]] && mat[i][j] != 0) {
                     usados[mat[j][i]] = true;
                 } else {
                     return false;
@@ -81,9 +83,9 @@ public class Ejercicio10 {
                 int x = 0;
                 int y = 0;
                 while (x < valFila) {
-                    y=0;
+                    y = 0;
                     while (y < valCol) {
-                        if (!usados[mat[i + x][j + y]]) {
+                        if (!usados[mat[i + x][j + y]] && mat[i + x][j + y] != 0) {
                             usados[mat[i + x][j + y]] = true;
                         } else {
                             return false;
@@ -97,5 +99,4 @@ public class Ejercicio10 {
         }
         return true;
     }
-
 }
