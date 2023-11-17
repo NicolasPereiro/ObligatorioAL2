@@ -1,6 +1,8 @@
+//Aclaracion sobre pruebas: En los casos de prueba distintos a 50.in.txt los txt tienen una una linea de mas vacia,
+ //en el 50in.txt esta no existe
+
 import java.util.Scanner;
 import functions.AlgoritmosGrafos;
-
 import tads.graph.GraphMatrix;
 
 public class Ejercicio5 {
